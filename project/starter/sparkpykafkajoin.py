@@ -154,8 +154,8 @@ stediEventsStreamingDF.withColumn("value", from_json("value", stediEventJSONSche
 customerRiskStreamingDF = spark.sql("SELECT customer, score FROM CustomerRisk")
 
 # Join the streaming dataframes on the email address to get the risk score and the birth year in the same dataframe
-customerEmailBirthYearAndRiskStreamingDF = emailAndBirthYearStreamingDF.join(customerRiskStreamingDF, expr("""
-email = customer
+customerEmailBirthYearAndRiskStreamingDF = customerRiskStreamingDF.join(emailAndBirthYearStreamingDF, expr("""
+customer = email
 """
 ))
 
@@ -180,3 +180,5 @@ customerEmailBirthYearAndRiskStreamingDF.selectExpr("cast(customer as string) as
     .option("checkpointLocation","/tmp/kafkacheckpoint") \
     .start() \
     .awaitTermination()
+# /home/workspace/submit-event-kafkajoin.sh
+# kafka-console-consumer --topic "risk-score-stedi" --bootstrap-server localhost:9092
