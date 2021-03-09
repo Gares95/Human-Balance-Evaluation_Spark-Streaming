@@ -121,7 +121,7 @@ emailAndBirthYearStreamingDF = relevantEmailAndBirthDayStreamingDF.select("birth
 # |Sean.Howard@test.com|1958|
 # |Sarah.Clark@test.com|1957|
 # +--------------------+-----
-relevantEmailAndBirthDayStreamingDF.writeStream.outputMode("append").format("console").start().awaitTermination()
+emailAndBirthYearStreamingDF.writeStream.outputMode("append").format("console").start().awaitTermination()
 # Run the python script by running the command from the terminal:
 # /home/workspace/submit-redis-kafka-streaming.sh
 # Verify the data looks correct 
